@@ -72,6 +72,7 @@ import BranchManagerDispatchBoard from "./components/branch-manager/BranchManage
 import BranchManagerAllPayments from "./components/branch-manager/BranchManagerAllPayments";
 import BranchManagerRefunds from "./components/branch-manager/BranchManagerRefunds";
 import BranchManagersManagement from "./components/manager/BranchManagersManagement";
+import DemoNoticeDialog from "./components/DemoNoticeDialog";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -97,6 +98,7 @@ function App() {
               <CartToastProvider>
                 <Router>
                   <div className="min-h-screen bg-background text-foreground">
+                    <DemoNoticeDialog />
                     <Routes>
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />
