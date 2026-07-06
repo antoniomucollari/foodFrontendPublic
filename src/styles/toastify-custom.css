@@ -1,0 +1,74 @@
+/* Custom React-Toastify Colors */
+
+/* Light Theme Colors */
+:root {
+  --toastify-color-light: #ffffff;
+  --toastify-color-dark: #121212;
+  --toastify-color-info: #3498db;
+  --toastify-color-success: #2ecc71;
+  --toastify-color-warning: #f39c12;
+  --toastify-color-error: #e74c3c;
+  
+  /* Background colors */
+  --toastify-color-progress-light: #3498db;
+  --toastify-color-progress-dark: #bb86fc;
+  --toastify-color-progress-info: var(--toastify-color-info);
+  --toastify-color-progress-success: var(--toastify-color-success);
+  --toastify-color-progress-warning: var(--toastify-color-warning);
+  --toastify-color-progress-error: var(--toastify-color-error);
+  
+  /* Text colors */
+  --toastify-text-color-light: #757575;
+  --toastify-text-color-dark: #ffffff;
+  
+  /* Spinner colors */
+  --toastify-spinner-color: #616161;
+  --toastify-spinner-color-empty-area: #e0e0e0;
+}
+
+/* Dark Theme Colors */
+[data-theme="dark"] {
+  --toastify-color-light: #2d3748;
+  --toastify-color-dark: #1a202c;
+  --toastify-color-info: #4299e1;
+  --toastify-color-success: #48bb78;
+  --toastify-color-warning: #ed8936;
+  --toastify-color-error: #f56565;
+  
+  --toastify-text-color-light: #e2e8f0;
+  --toastify-text-color-dark: #ffffff;
+}
+
+/* Custom styling for smaller toasts */
+.Toastify__toast {
+  font-size: 12px !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  margin-bottom: 8px !important;
+  min-height: 32px !important;
+}
+
+.Toastify__toast-body {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.Toastify__close-button {
+  color: inherit !important;
+  opacity: 0.7 !important;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1 !important;
+}
+
+/* Custom progress bar */
+.Toastify__progress-bar {
+  height: 2px !important;
+}
+
+/* Custom positioning adjustments */
+.Toastify__toast-container--bottom-right {
+  bottom: 16px !important;
+  right: 16px !important;
+}
