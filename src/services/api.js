@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { handleApiError } from "./errorHandler";
 
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL = "https://api-backend.antoniomucollari.com/api";
 
 // Create axios instance
 const api = axios.create({
