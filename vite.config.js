@@ -7,8 +7,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
+  esbuild:
+    mode === "production"
+      ? {
+          drop: ["console", "debugger"],
+        }
+      : undefined,
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -22,4 +28,4 @@ export default defineConfig({
       "a443-91-230-254-104.ngrok-free.app"
     ]
   }
-})
+}))

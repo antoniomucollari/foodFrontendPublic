@@ -5,6 +5,7 @@ if (typeof global === 'undefined') {
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import './config/productionConsole.js'
 import './index.css'
 import App from './App.jsx'
 
