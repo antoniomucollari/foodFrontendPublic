@@ -10,8 +10,7 @@ import {
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 
-const NOTICE_STORAGE_KEY = "flavorFusionDemoNoticeOkCount";
-const REQUIRED_CONFIRMATIONS = 2;
+const NOTICE_DISMISS_KEY = "flavorFusionDemoNoticeDismissed";
 
 const demoAccounts = [
   { role: "Admin", email: "mucollariantonio@gmail.com" },
@@ -21,44 +20,13 @@ const demoAccounts = [
   { role: "Customer", email: "customer0@emaildomain.com" },
 ];
 
-function getSavedConfirmationCount() {
-  const savedCount = Number(localStorage.getItem(NOTICE_STORAGE_KEY));
-
-  return Number.isFinite(savedCount) ? savedCount : 0;
-}
-
 export default function DemoNoticeDialog() {
-  const [confirmationCount, setConfirmationCount] = useState(() =>
-    getSavedConfirmationCount(),
-  );
-  const [isOpen, setIsOpen] = useState(() => getSavedConfirmationCount() === 0);
-
-  const nextStep = Math.min(confirmationCount + 1, REQUIRED_CONFIRMATIONS);
-
-  React.useEffect(() => {
-    if (confirmationCount !== 1 || isOpen) return undefined;
-
-    const handleNextInteraction = () => {
-      setIsOpen(true);
-    };
-
-    document.addEventListener("click", handleNextInteraction, {
-      once: true,
-    });
-
-    return () => {
-      document.removeEventListener("click", handleNextInteraction);
-    };
-  }, [confirmationCount, isOpen]);
+  const [isOpen, setIsOpen] = useState(() => {
+    return localStorage.getItem(NOTICE_DISMISS_KEY) !== "true";
+  });
 
   const handleOk = () => {
-    const updatedCount = Math.min(
-      confirmationCount + 1,
-      REQUIRED_CONFIRMATIONS,
-    );
-
-    localStorage.setItem(NOTICE_STORAGE_KEY, String(updatedCount));
-    setConfirmationCount(updatedCount);
+    localStorage.setItem(NOTICE_DISMISS_KEY, "true");
     setIsOpen(false);
   };
 
@@ -66,53 +34,47 @@ export default function DemoNoticeDialog() {
     <AlertDialog open={isOpen}>
       <AlertDialogContent className="max-h-[90vh] overflow-y-auto rounded-lg sm:max-w-2xl">
         <AlertDialogHeader>
-          <div className="mb-1 inline-flex w-fit rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-            Demo notice {nextStep} of {REQUIRED_CONFIRMATIONS}
+          <div className="mb-1 inline-flex w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+            Welcome to Flavor Fusion Demo!
           </div>
-          <AlertDialogTitle className="text-xl">
-            Testing and demo login information
+          <AlertDialogTitle className="text-xl font-bold tracking-tight">
+            Seamless Guest Experience Enabled
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-sm leading-6">
-            This project is a backend and DevOps-focused hobby project that I
-            have worked on for 1 year. Please do not expect every frontend
-            criterion to be perfect. The experience is best viewed from a PC;
-            the responsive layout might not be perfect, but it is good.
+          <AlertDialogDescription className="text-sm leading-relaxed text-muted-foreground mt-2">
+            To make exploring this platform effortless, **you have been automatically logged in as a Customer**! Feel free to browse menus, add items to your cart, and place mock orders immediately.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <div className="space-y-4 text-sm">
-          <div className="rounded-md border bg-muted/40 p-4">
-            <p className="font-medium text-foreground">Shared password</p>
-            <p className="mt-1 break-all font-mono text-base text-foreground">
-              Toni145@!
+        <div className="space-y-4 text-sm mt-2">
+          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-foreground">
+            <p className="font-semibold text-primary">Testing other roles?</p>
+            <p className="mt-1.5 leading-relaxed text-muted-foreground">
+              If you want to explore the backend or dispatch dashboards for other roles (such as **Admin**, **Restaurant Owner**, **Branch Manager**, or **Delivery Rider**), simply log out from the navigation. 
+            </p>
+            <p className="mt-1.5 leading-relaxed text-muted-foreground">
+              On the Sign In page, you will find our **Demo Quick Login** dashboard, which lets you instantly switch to any account with a single click—no copy-pasting required!
             </p>
           </div>
 
-          <div className="space-y-2">
-            {demoAccounts.map((account) => (
-              <div
-                key={account.email}
-                className="grid gap-1 rounded-md border p-3 sm:grid-cols-[180px_1fr] sm:items-center"
-              >
-                <span className="font-medium text-foreground">
-                  {account.role}
-                </span>
-                <span className="break-all font-mono text-xs text-muted-foreground sm:text-sm">
-                  {account.email}
-                </span>
-              </div>
-            ))}
+          <div className="rounded-md border bg-muted/30 p-3">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Available Demo Accounts</p>
+            <div className="space-y-1.5">
+              {demoAccounts.map((account) => (
+                <div
+                  key={account.email}
+                  className="flex justify-between items-center text-xs py-1 border-b border-muted last:border-0"
+                >
+                  <span className="font-medium text-foreground">{account.role}</span>
+                  <span className="font-mono text-muted-foreground">{account.email}</span>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <p className="rounded-md bg-primary/5 p-3 text-muted-foreground">
-            These accounts are only for testing and demo purposes. Please log in
-            as the customer at least once for the best experience.
-          </p>
         </div>
 
-        <AlertDialogFooter>
-          <Button type="button" onClick={handleOk} className="w-full sm:w-auto">
-            OK
+        <AlertDialogFooter className="mt-4">
+          <Button type="button" onClick={handleOk} className="w-full">
+            Awesome, let's explore!
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

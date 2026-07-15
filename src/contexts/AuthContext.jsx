@@ -59,8 +59,23 @@ export const AuthProvider = ({ children }) => {
           console.error("Error refreshing user details on load:", error);
           // Keep the stored user data if refresh fails
         }
+        setLoading(false);
+      } else {
+        // No stored credentials - check if explicit logout occurred
+        const isExplicitLogout = localStorage.getItem("explicit_logout") === "true";
+        if (!isExplicitLogout) {
+          try {
+            console.log("Auto-logging in guest user...");
+            await login({
+              email: "customer0@emaildomain.com",
+              password: "Toni145@!",
+            });
+          } catch (error) {
+            console.error("Error performing auto-login:", error);
+          }
+        }
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     initializeAuth();
@@ -106,6 +121,9 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
       }
 
+      // Remove explicit logout flag since user is now logged in
+      localStorage.removeItem("explicit_logout");
+
       return response.data;
     } catch (error) {
       throw error;
@@ -124,6 +142,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.setItem("explicit_logout", "true");
     setToken(null);
     setUser(null);
   };
