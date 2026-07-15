@@ -26,7 +26,13 @@ class WebSocketService {
     }
 
     try {
-      const socket = new SockJS("http://localhost:8080/ws");
+      const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      const wsUrl = isLocalhost 
+        ? "http://localhost:8080/ws" 
+        : "https://api-backend.antoniomucollari.com/ws";
+      
+      console.log("Connecting WebSocket to:", wsUrl);
+      const socket = new SockJS(wsUrl);
 
       // Pass auth token via STOMP connect headers for user-level subscriptions
       const token = localStorage.getItem("token");

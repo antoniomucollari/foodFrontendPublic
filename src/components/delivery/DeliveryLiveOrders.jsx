@@ -24,25 +24,11 @@ const DeliveryLiveOrders = () => {
     setError(null);
 
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/orders/unassigned-orders?page=0&size=50`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
+      const response = await orderAPI.getReadyForPickupOrders({ page: 0, size: 50 });
+      const data = response.data;
       console.log("API Response:", data);
 
-      if (data.data && data.data.content) {
+      if (data && data.data && data.data.content) {
         setOrders(data.data.content);
         console.log("Orders found:", data.data.content);
       } else {
