@@ -77,7 +77,7 @@ const BranchMap = ({ restaurantLocation, deliveryRadiusInKm, userLocation, class
                     map: mapInstanceRef.current,
                     title: "Restaurant Location",
                     icon: {
-                        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                        url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
                     }
                 });
 
@@ -145,7 +145,7 @@ const BranchMap = ({ restaurantLocation, deliveryRadiusInKm, userLocation, class
                     map: mapInstanceRef.current,
                     title: "Restaurant Location",
                     icon: {
-                        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                        url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
                     }
                 });
             }
